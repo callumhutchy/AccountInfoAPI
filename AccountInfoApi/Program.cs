@@ -21,6 +21,7 @@ namespace AccountInfoApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://localhost:5000","http://HUTCHYSERVER:5000");
                 });
     }
 }
