@@ -64,14 +64,19 @@ namespace AccountInfoApi.Controllers
           
             DBConnect();
             
+            string password = json.password;
+
+            byte[] salt = hashPassword(ref password);
+
             MySqlCommand cmd = new MySqlCommand("register_user", connection);
             
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new MySqlParameter("userIN",json.username));
             cmd.Parameters.Add(new MySqlParameter("emailIN",json.email));
-            cmd.Parameters.Add(new MySqlParameter("passwordIN",hashPassword(json.password)));
+            cmd.Parameters.Add(new MySqlParameter("passwordIN",password));
             cmd.Parameters.Add(new MySqlParameter("valcodeIN", Generate(7)));
             cmd.Parameters.Add(new MySqlParameter("adminIN", json.admin));       
+            cmd.Parameters.Add(new MySqlParameter("saltIN", salt));
             cmd.Parameters.Add(new MySqlParameter("resultOUT", MySqlDbType.Int32));
             cmd.Parameters["resultOUT"].Direction = System.Data.ParameterDirection.Output;
             
@@ -83,7 +88,8 @@ namespace AccountInfoApi.Controllers
 
         }
 
-        public string hashPassword(string password){
+    
+        public byte[] hashPassword(ref string password){
             var salt =  getSalt();
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
 
@@ -92,15 +98,77 @@ namespace AccountInfoApi.Controllers
 
             Array.Copy(salt, 0, hashBytes, 0, 16);
             Array.Copy(hash, 0, hashBytes, 16, 20);
-
-            return Convert.ToBase64String(hashBytes);
-
+            password = Convert.ToBase64String(hashBytes);
+            return salt;
         }
 
         public byte[] getSalt(){
             byte[] salt;
            new RNGCryptoServiceProvider().GetBytes(salt= new byte[16]);
            return salt;
+        }
+
+        [HttpGet("salt/{Username}")]
+        public async Task<byte[]> GetSalt(string username){
+            return (byte[]) _context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault().Salt;
+        }
+
+        [HttpGet("logged_in/{Username}")]
+        public async Task<bool> UserHasLoggedIn(string username){
+            if( _context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault().LoggedIn == 1){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        [HttpGet("log_in/{Username}")]
+        public async Task<bool> UserLogIn(string username){
+
+            if(_context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault().LoggedIn == 1){
+                return false;
+            }
+
+            var result = _context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault();
+            result.LoggedIn = 1;
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        [HttpGet("log_out/{Username}")]
+        public async Task<bool> UserLogOut(string username){
+            if(_context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault().LoggedIn == 0){
+                return false;
+            }
+
+            var result = _context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault();
+            result.LoggedIn = 0;
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        [HttpPost("login")]
+        public async Task<string> Login([FromBody] UserAndPass content){ 
+            Console.WriteLine(content.username + " | " + content.password);
+            if(_context.UserInformation.Where(x=>x.Username.Equals(content.username)).FirstOrDefault().LoggedIn == 1){
+                Console.WriteLine("User account already logged in, please log out elsewhere.");
+                return "User account already logged in, please log out elsewhere.";
+            }
+
+            if(_context.UserInformation.Where(x=>x.Username.Equals(content.username) && x.Password.Equals(content.password)).Count() > 0){
+                string code = GenerateAuthToken();
+                Console.WriteLine(code);
+                _context.UserInformation.Where(x=>x.Username.Equals(content.username) && x.Password.Equals(content.password)).FirstOrDefault().AuthenticationToken = code;
+                _context.SaveChanges();
+                Console.WriteLine("Information correct:"+code);
+                return "Information correct:"+code;
+            }else{
+                Console.WriteLine("Account information is incorrect, please check and try again.");
+                return "Account information is incorrect, please check and try again.";
+            }
+
         }
 
         public void DBConnect(){
@@ -123,6 +191,14 @@ namespace AccountInfoApi.Controllers
             return id;
         }
 
+        private static string GenerateAuthToken(int length = 10){
+            string code = "";
+            for(int i = 0; i < length; i++){
+                code += chars[_random.Next(36)];
+            }
+            return code;
+        }
+
     }
 }
 
@@ -136,4 +212,12 @@ public class UserInfoInputJson{
     public string password {get;set;}
     [DataMember(Name = "admin")]
     public int admin {get; set;}
+}
+
+[DataContract]
+public class UserAndPass{
+    [DataMember(Name = "username")]
+    public string username;
+    [DataMember(Name = "password")]
+    public string password;
 }

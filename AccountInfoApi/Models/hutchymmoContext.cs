@@ -74,6 +74,10 @@ namespace AccountInfoApi.Models
                     .HasMaxLength(256)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Salt)
+                    .IsRequired()
+                    .HasColumnName("salt");
+
                 entity.Property(e => e.PreviousPassword)
                     .HasColumnName("previous_password")
                     .HasMaxLength(256)

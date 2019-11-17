@@ -46,6 +46,7 @@ namespace AccountInfoApi
             }
 
             app.UseHttpsRedirection();
+            
 
             app.UseRouting();
 

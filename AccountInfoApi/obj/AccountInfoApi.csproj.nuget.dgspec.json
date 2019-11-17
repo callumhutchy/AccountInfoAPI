@@ -1,30 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Programming\\AccountInfoAPI\\AccountInfoApi\\AccountInfoApi.csproj": {}
+    "C:\\Users\\callum\\Desktop\\AccountInfoApi\\AccountInfoApi.csproj": {}
   },
   "projects": {
-    "F:\\Programming\\AccountInfoAPI\\AccountInfoApi\\AccountInfoApi.csproj": {
+    "C:\\Users\\callum\\Desktop\\AccountInfoApi\\AccountInfoApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Programming\\AccountInfoAPI\\AccountInfoApi\\AccountInfoApi.csproj",
+        "projectUniqueName": "C:\\Users\\callum\\Desktop\\AccountInfoApi\\AccountInfoApi.csproj",
         "projectName": "AccountInfoApi",
-        "projectPath": "F:\\Programming\\AccountInfoAPI\\AccountInfoApi\\AccountInfoApi.csproj",
-        "packagesPath": "C:\\Users\\callu\\.nuget\\packages\\",
-        "outputPath": "F:\\Programming\\AccountInfoAPI\\AccountInfoApi\\obj\\",
+        "projectPath": "C:\\Users\\callum\\Desktop\\AccountInfoApi\\AccountInfoApi.csproj",
+        "packagesPath": "C:\\Users\\callum\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\callum\\Desktop\\AccountInfoApi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\callu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\callum\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

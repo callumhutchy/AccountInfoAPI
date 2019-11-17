@@ -17,5 +17,6 @@ namespace AccountInfoApi.Models
         public int Validated { get; set; }
         public string AuthenticationToken { get; set; }
         public int LoggedIn { get; set; }
+        public byte[] Salt {get;set;}
     }
 }
