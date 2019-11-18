@@ -7746,11 +7746,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\callum\\Desktop\\AccountInfoApi\\AccountInfoApi.csproj",
+      "projectUniqueName": "C:\\Users\\callum\\Documents\\AccountInfoAPI\\AccountInfoApi\\AccountInfoApi.csproj",
       "projectName": "AccountInfoApi",
-      "projectPath": "C:\\Users\\callum\\Desktop\\AccountInfoApi\\AccountInfoApi.csproj",
+      "projectPath": "C:\\Users\\callum\\Documents\\AccountInfoAPI\\AccountInfoApi\\AccountInfoApi.csproj",
       "packagesPath": "C:\\Users\\callum\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\callum\\Desktop\\AccountInfoApi\\obj\\",
+      "outputPath": "C:\\Users\\callum\\Documents\\AccountInfoAPI\\AccountInfoApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\callum\\AppData\\Roaming\\NuGet\\NuGet.Config"

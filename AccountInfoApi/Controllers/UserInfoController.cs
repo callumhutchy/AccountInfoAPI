@@ -113,6 +113,11 @@ namespace AccountInfoApi.Controllers
             return (byte[]) _context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault().Salt;
         }
 
+        [HttpGet("auth_token/{Username}")]
+        public async Task<string> GetAuth(string username){
+            return _context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault().AuthenticationToken;
+        }
+
         [HttpGet("logged_in/{Username}")]
         public async Task<bool> UserHasLoggedIn(string username){
             if( _context.UserInformation.Where(x=>x.Username.Equals(username)).FirstOrDefault().LoggedIn == 1){
