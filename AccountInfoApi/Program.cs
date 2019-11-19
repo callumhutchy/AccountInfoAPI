@@ -26,7 +26,7 @@ namespace AccountInfoApi
                     .UseContentRoot(Directory.GetCurrentDirectory())
                     .UseKestrel()
                     .UseIISIntegration()
-                    .UseUrls("https://server.callumhutchy.co.uk:5003");
+                    .UseUrls("https://localhost:5003");
                 });
     }
 }
