@@ -23,10 +23,10 @@ namespace AccountInfoApi
                 {
                     
                     webBuilder.UseStartup<Startup>()
-                    .UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseKestrel()
                     .UseIISIntegration()
-                    .UseUrls("https://localhost:5000","https://HUTCHYSERVER:5001","https://*:5002","http://server.callumhutchy.co.uk:5003");
+                    .UseUrls("https://server.callumhutchy.co.uk:5003");
                 });
     }
 }
