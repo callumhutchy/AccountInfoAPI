@@ -6,3 +6,7 @@ AccountInfoApi/bin/Debug/netcoreapp3.0/publish/
 AccountInfoApi/bin/Debug/netcoreapp3.0/
 
 AccountInfoApi/obj/Debug/netcoreapp3.0/
+
+AccountInfoApi/bin/
+
+AccountInfoApi/obj/
