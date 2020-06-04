@@ -30,10 +30,6 @@ namespace AccountInfoApi.Controllers
             _context = context;
         }
 
-        [HttpGet("username/{Username}")]
-        public async Task<ActionResult<IEnumerable<FriendsList>>> GetUserInfos(){
-            return await _context.UserInformation.ToListAsync();
-        }
 
         public void DBConnect(){
             if(connection == null){
